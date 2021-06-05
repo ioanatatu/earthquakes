@@ -2,12 +2,14 @@ import './App.css';
 import React, { useEffect } from 'react';
 import ReactGlobe from 'react-globe';
 
+import config from './config';
+
 function App() {
    useEffect(() => {
       (async () => {
          //  use short polling to get real-time data from API
          fetch(
-            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson`
+            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${config.day}.geojson`
          )
             .then((res) => res.json())
             .then((data) => console.log(data));

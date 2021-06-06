@@ -1,13 +1,13 @@
 # USGS Earthquakes Feed - data visualisation
 
-The app uses data from the USGS API and displays it on a 3D globe.
+The app uses earthquake data from the USGS API and displays it on a 3D globe. It also provides information about earthquake location and magnitude.
 
 ## Features
 
 1. data mapping on 3D globe
-2. choose timeframe: past hour, day, week, month
+2. choose timeframe: past hour, day, week
 3. UI alert for latest eartquake
-4. list with filtering by country
+4. earthquake list sorted by magnitude
 
 ## Installation steps
 

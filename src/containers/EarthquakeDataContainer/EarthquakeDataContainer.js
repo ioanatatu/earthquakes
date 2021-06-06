@@ -15,10 +15,14 @@ import { findMaxMag, assignColor } from '../../helpers/helperFunctions';
 import { menu } from '../../helpers/config';
 
 /**
- * EarthquakeDataContainer component receives data and maps it for WordCloud and Metadata props
+ * EarthquakeDataContainer component receives array of earthquakes and maps them
+ * on data models for other components
  *
  * @param {string} title The title given to the globe and data wrapper.
  * @param {array} data Array of earthquakes.
+ * @param {array} lastHour Array of earthquakes in the last hour.
+ * @param {function} getParam Function that passes the info of clicked button
+ * to its parent component.
  */
 const EarthquakeDataContainer = ({
    title: { title, subtitle },
@@ -31,7 +35,6 @@ const EarthquakeDataContainer = ({
    const [location, setLocation] = useState('');
    const [time, setTime] = useState('');
 
-   // console.log('data__', lastHour);
    useEffect(() => {
       /*
        * find earthquake with highest magnitude and
@@ -41,7 +44,6 @@ const EarthquakeDataContainer = ({
          const earthquakeMaxMag = data.find(
             (quake) => findMaxMag(data) === quake.id
          );
-         // console.log(earthquakeMaxMag);
          setMaxMag(earthquakeMaxMag.properties.mag);
       }
 
@@ -53,9 +55,8 @@ const EarthquakeDataContainer = ({
             color: assignColor(quake.properties.mag),
             coordinates: [
                quake.geometry.coordinates[1],
-               quake.geometry.coordinates[2],
+               quake.geometry.coordinates[0],
             ],
-            // value: assignSize(quake.properties.mag),
             value: quake.properties.mag,
          };
       });

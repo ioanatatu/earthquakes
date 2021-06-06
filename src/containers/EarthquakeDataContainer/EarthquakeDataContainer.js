@@ -40,10 +40,7 @@ const EarthquakeDataContainer = ({
    const [time, setTime] = useState('');
 
    useEffect(() => {
-      /*
-       * find earthquake with highest magnitude and
-       * display its data as default
-       */
+      // find earthquake with highest magnitude in a chosen setInterval
       if (data.length) {
          const earthquakeMaxMag = data.find(
             (quake) => findMaxMag(data) === quake.id
@@ -59,6 +56,7 @@ const EarthquakeDataContainer = ({
          return quakeObj;
       });
 
+      mappedData.sort((a, b) => b.value - a.value);
       setMappedData(mappedData);
    }, [data, setMaxMag]);
 

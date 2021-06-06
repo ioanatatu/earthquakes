@@ -1,56 +1,47 @@
-import './App.css';
-import React, { useEffect } from 'react';
-import ReactGlobe from 'react-globe';
+import './App.scss';
+import React, { useEffect, useState } from 'react';
 
-import config from './config';
+// components
+import EarthquakeDataContainer from './containers/EarthquakeDataContainer/EarthquakeDataContainer';
+
+// temporary data for testing
+// import dataSet from './dataSet';
 
 function App() {
+   // const [reset, setReset] = useState([]);
+   const [data, setData] = useState([]);
+   const [param, setParam] = useState('all_day');
+
+   // useEffect(() => {
+   //    const clear = setInterval(myFn, 4000);
+   // }, [reset]);
+
    useEffect(() => {
       (async () => {
          //  use short polling to get real-time data from API
          fetch(
-            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${config.day}.geojson`
+            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
          )
             .then((res) => res.json())
-            .then((data) => console.log(data));
+            .then((data) => setData(data.features));
       })();
-   }, []);
-   // simple and extensive options to configure globe
-   const options = {
-      ambientLightColor: '#5d6191',
-      cameraRotateSpeed: 0.5,
-      focusAnimationDuration: 2000,
-      focusEasingFunction: ['Linear', 'None'],
-      pointLightColor: '#ede8c8',
-      pointLightIntensity: 3,
-      markerTooltipRenderer: (marker) => `${marker.city} (${marker.value})`,
-      globeBackgroundTexture:
-         'https://raw.githubusercontent.com/chrisrzhou/react-globe/main/textures/background.png',
-      globeCloudsTexture:
-         'https://raw.githubusercontent.com/chrisrzhou/react-globe/main/textures/clouds.png',
-      globeTexture:
-         'https://raw.githubusercontent.com/chrisrzhou/react-globe/main/textures/globe_dark.jpg',
-      ambientLightIntensity: 2.5,
-      cameraAutoRotateSpeed: 0.01,
-      enableCameraZoom: false,
-      enableDefocus: false,
-      globeCloudsOpacity: 0.1,
-      globeGlowCoefficient: 0.1,
-      globeGlowColor: 'white',
-      globeGlowPower: 5,
-      globeGlowRadiusScale: 0.2,
-      pointLightPositionRadiusScales: [-1, 1.5, -2.5],
+   }, [param]);
+
+   const getParam = (target) => {
+      setParam(target);
    };
 
    return (
-      <ReactGlobe
-         height='100vh'
-         width='100vw'
-         options={options}
-         globeBackgroundTexture={options.globeBackgroundTexture}
-         globeCloudsTexture={options.globeCloudsTexture}
-         globeTexture={options.globeTexture}
-      />
+      <div className='App' title='app'>
+         <EarthquakeDataContainer
+            data={data}
+            title={{
+               title: 'Earthquakes Around the Globe',
+               subtitle: 'Live from USGS',
+            }}
+            getParam={getParam}
+         />
+      </div>
    );
 }
 

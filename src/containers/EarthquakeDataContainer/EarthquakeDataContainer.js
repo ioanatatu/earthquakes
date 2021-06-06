@@ -11,7 +11,11 @@ import Menu from '../../components/Data/Menu/Menu';
 import List from '../../components/Data/List/List';
 
 // helper functions
-import { findMaxMag, assignColor } from '../../helpers/helperFunctions';
+import {
+   findMaxMag,
+   mapDataOnGlobeMarkers,
+   assignColor,
+} from '../../helpers/helperFunctions';
 import { menu } from '../../helpers/config';
 
 /**
@@ -49,17 +53,12 @@ const EarthquakeDataContainer = ({
 
       // map incoming data on globe data model in state
       const mappedData = data.map((quake) => {
-         return {
-            id: quake.id,
-            city: quake.properties.place,
-            color: assignColor(quake.properties.mag),
-            coordinates: [
-               quake.geometry.coordinates[1],
-               quake.geometry.coordinates[0],
-            ],
-            value: quake.properties.mag,
-         };
+         const quakeObj = mapDataOnGlobeMarkers(quake, assignColor);
+         quakeObj.color = assignColor(quake.properties.mag);
+
+         return quakeObj;
       });
+
       setMappedData(mappedData);
    }, [data, setMaxMag]);
 

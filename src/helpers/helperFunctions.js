@@ -1,4 +1,5 @@
 import { magnitudeColors } from './config';
+
 /**
  * findMaxMag
  *
@@ -23,19 +24,29 @@ export const findMaxMag = (arr) => {
    }
    return quake.id;
 };
+
 /**
  * mapDataOnGlobeMarkers
  *
  * @param {object} word Word data to be mapped on new data model.
  * @return {object} Word data model to be used in other components.
  */
-export const mapDataOnGlobeMarkers = (word) => {
+export const mapDataOnGlobeMarkers = (quake) => {
    // cover invalid input
-   if (!word) throw new Error('null, undefined or empty object');
-   if (typeof word !== 'object' || Array.isArray(word))
+   if (!quake) throw new Error('null, undefined or empty object');
+   if (typeof quake !== 'object' || Array.isArray(quake))
       throw new Error('not an object');
 
-   return { label: word.label, volume: word.volume, sentiment: word.sentiment };
+   return {
+      id: quake.id,
+      city: quake.properties.place,
+      color: '',
+      coordinates: [
+         quake.geometry.coordinates[1],
+         quake.geometry.coordinates[0],
+      ],
+      value: quake.properties.mag,
+   };
 };
 
 /**

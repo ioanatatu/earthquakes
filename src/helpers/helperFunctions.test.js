@@ -3,8 +3,10 @@ import {
    mapDataOnGlobeMarkers,
    assignColor,
 } from '../helpers/helperFunctions';
+import earthquakes from '../dataSet';
 import { magnitudeColors } from './config';
-import data from '../object.json';
+
+const data = earthquakes.features;
 
 const { blue, green, yellowGreen, orange, red } = magnitudeColors;
 
@@ -17,6 +19,7 @@ describe('return value if a string', () => {
       expect(id).toMatch('');
    });
 });
+
 /**
  * test mapDataOnGlobeMarkers
  */
@@ -34,7 +37,7 @@ test('invalid input for word object', () => {
    expect(testArray).toThrowError(new Error('not an object'));
 });
 
-test('mapped word object structure', () => {
+test('mapped earthquake object structure', () => {
    const quake = {
       type: 'Feature',
       properties: {
@@ -72,9 +75,11 @@ test('mapped word object structure', () => {
       },
       id: 'hv72506707',
    };
-   expect(mapDataOnGlobeMarkers(quake)).toHaveProperty('label');
-   expect(mapDataOnGlobeMarkers(quake)).toHaveProperty('volume');
-   expect(mapDataOnGlobeMarkers(quake)).toHaveProperty('sentiment');
+   expect(mapDataOnGlobeMarkers(quake)).toHaveProperty('id');
+   expect(mapDataOnGlobeMarkers(quake)).toHaveProperty('city');
+   expect(mapDataOnGlobeMarkers(quake)).toHaveProperty('color');
+   expect(mapDataOnGlobeMarkers(quake)).toHaveProperty('coordinates');
+   expect(mapDataOnGlobeMarkers(quake)).toHaveProperty('value');
 });
 
 /**
@@ -83,20 +88,19 @@ test('mapped word object structure', () => {
 test('invalid input for color', () => {
    const nullOrUndefined = () => assignColor();
    const notNumber = () => assignColor('asdasd');
-   const notPositive = () => assignColor(-1);
 
    expect(nullOrUndefined).toThrowError(new Error('null or undefined'));
    expect(notNumber).toThrowError(new Error('not a number'));
-   expect(notPositive).toThrowError(new Error('not a positive number'));
 });
 
 test('correct color attribution', () => {
-   expect(assignColor(0)).toBe(red);
-   expect(assignColor(39)).toBe(red);
-   expect(assignColor(40)).toBe(grey);
-   expect(assignColor(41)).toBe(grey);
-   expect(assignColor(59)).toBe(grey);
-   expect(assignColor(60)).toBe(grey);
-   expect(assignColor(61)).toBe(green);
-   expect(assignColor(2000)).toBe(green);
+   expect(assignColor(-1)).toBe(blue);
+   expect(assignColor(0)).toBe(blue);
+   expect(assignColor(1)).toBe(green);
+   expect(assignColor(1.9)).toBe(yellowGreen);
+   expect(assignColor(2)).toBe(yellowGreen);
+   expect(assignColor(2.1)).toBe(orange);
+   expect(assignColor(3)).toBe(orange);
+   expect(assignColor(3.1)).toBe(red);
+   expect(assignColor(4)).toBe(red);
 });

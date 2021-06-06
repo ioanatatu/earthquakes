@@ -31,7 +31,7 @@ function App() {
                .then((res) => res.json())
                .then((res) => setLastHour(res.features));
          })();
-      }, 1000 * 60);
+      }, 1000 * 20);
    }, []);
 
    useEffect(() => {

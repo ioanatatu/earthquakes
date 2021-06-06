@@ -1,0 +1,33 @@
+.wrapper {
+   padding: 50px;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: flex-start;
+
+   .columnOne {
+      margin-right: 30px;
+
+      .title {
+         font-weight: 500;
+         color: #1e2648;
+         margin: 0;
+      }
+
+      .subtitle {
+         font-size: 18px;
+         color: #5b5d66;
+         font-weight: 400;
+         margin-top: 5px;
+      }
+      .title,
+      .subtitle {
+         margin-left: 50px;
+      }
+   }
+
+   .columnTwo {
+      width: 500px;
+      background-color: white;
+   }
+}

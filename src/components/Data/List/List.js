@@ -3,12 +3,11 @@ import style from './List.module.scss';
 import PropTypes from 'prop-types';
 
 /**
- * List component receives data to be mapped on buttons
+ * List component receives data to be mapped on the earthquake list
  *
- * @param {object} List The text for each button.
+ * @param {array} data Array of earthquakes.
  */
 const List = ({ data }) => {
-   console.log('data from List__', data);
 
    return (
       <div className={style.listWrapper}>

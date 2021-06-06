@@ -30,7 +30,6 @@ Menu.propTypes = {
       hour: PropTypes.string,
       day: PropTypes.string,
       week: PropTypes.string,
-      month: PropTypes.string,
    }),
    handleClick: PropTypes.func,
 };

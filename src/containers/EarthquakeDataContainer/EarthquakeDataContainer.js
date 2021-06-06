@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 // components
 import Globe from '../../components/Globe/Globe';
 import NewEarthquakeAlert from '../../components/Data/NewEarthquakeAlert/NewEarthquakeAlert';
-import Stats from '../../components/Data/Stats';
-import Menu from '../../components/Data/Menu';
-import List from '../../components/Data/List';
+import Stats from '../../components/Data/Stats/Stats';
+import Menu from '../../components/Data/Menu/Menu';
+import List from '../../components/Data/List/List';
 
 // helper functions
 import {
@@ -33,7 +33,6 @@ const EarthquakeDataContainer = ({
    const [mappedData, setMappedData] = useState([]);
    const [location, setLocation] = useState('');
    const [time, setTime] = useState('');
-   // const [currentQuake, setCurrentQuake] = useState({});
 
    console.log('data__', lastHour);
    useEffect(() => {
@@ -54,8 +53,7 @@ const EarthquakeDataContainer = ({
       const mappedData = data.map((quake) => {
          return {
             id: quake.id,
-            // city: quake.properties.place,
-            city: quake.properties.mag,
+            city: quake.properties.place,
             color: assignColor(quake.properties.mag),
             coordinates: [
                quake.geometry.coordinates[1],
@@ -84,8 +82,8 @@ const EarthquakeDataContainer = ({
          </div>
          <div className={style.columnTwo}>
             <NewEarthquakeAlert location={location} time={time} />
-            <Stats total={data.length} maxMag={maxMag} />
             <Menu menu={menu} handleClick={getParam} />
+            <Stats total={data.length} maxMag={maxMag} />
             <List data={mappedData} />
          </div>
       </div>

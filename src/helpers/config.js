@@ -1,10 +1,13 @@
 export const magnitudeColors = {
-   green: '#00ff4e',
+   green: '#1ac455',
    red: '#ef0034',
-   yellowGreen: '#c1ff00',
+   yellowGreen: '#00772a',
    orange: '#ffb600',
    blue: '#2424ff',
 };
+/**
+ * config for data requests
+ */
 export const menu = {
    hour: 'all_hour',
    day: 'all_day',

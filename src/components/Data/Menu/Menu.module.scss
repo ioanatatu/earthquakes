@@ -1,0 +1,26 @@
+.buttons {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 20px;
+
+   .btn {
+      font-family: 'Roboto Mono', monospace;
+      outline: none;
+      width: 30%;
+      cursor: pointer;
+      padding: 5px 0;
+      border-radius: 5px;
+      // border: 0.5px solid #28292a;
+      border: none;
+      background: white;
+      transition: all 0.1s linear;
+      font-size: 14px;
+      font-weight: 500;
+   }
+   .btn:hover {
+      box-shadow: 2px 2px 1px #129e44;
+      // border-color: #129e44;
+      color: #129e44;
+   }
+}

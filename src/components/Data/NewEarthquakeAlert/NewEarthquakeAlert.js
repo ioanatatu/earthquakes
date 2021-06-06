@@ -15,9 +15,10 @@ const NewEarthquakeAlert = ({ location, time }) => {
    const [ring, setRing] = useState(false);
 
    useEffect(() => {
-      console.log('new incoming location___', location);
       setRing(true);
 
+      // set ring to false after 2.5s, so that it will be triggered again
+      // upon new incoming data
       setTimeout(() => {
          setRing(false);
       }, 2500);

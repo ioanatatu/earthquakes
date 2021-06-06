@@ -1,4 +1,4 @@
-// import css from './Menu.module.scss';
+import style from './Menu.module.scss';
 
 import PropTypes from 'prop-types';
 
@@ -7,14 +7,17 @@ import PropTypes from 'prop-types';
  *
  * @param {object} menu The text for each button.
  * @param {handleClick} function Lifts the info of clicked button
- * up to the parrent component.
+ * to parrent component.
  */
 const Menu = ({ menu, handleClick }) => {
    return (
-      <div>
+      <div className={style.buttons}>
          {menu &&
             Object.keys(menu).map((item) => (
-               <button key={item} onClick={() => handleClick(menu[item])}>
+               <button
+                  className={style.btn}
+                  key={item}
+                  onClick={() => handleClick(menu[item])}>
                   {item}
                </button>
             ))}

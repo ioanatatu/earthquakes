@@ -25,23 +25,15 @@ function App() {
       }, 1000 * 60);
    }, []);
 
-   // useEffect(() => {
-   //    const clear = setInterval(myFn, 4000);
-   // }, [reset]);
-
-   // useEffect(() => {
-   //    (async () => {
-   //       //  use short polling to get real-time data from API
-   //       fetch(
-   //          `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
-   //       )
-   //          .then((res) => res.json())
-   //          .then((data) => setData(data.features));
-   //    })();
-   // }, [param]);
    useEffect(() => {
-      setData(dataSet.features);
-   }, []);
+      (async () => {
+         fetch(
+            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
+         )
+            .then((res) => res.json())
+            .then((data) => setData(data.features));
+      })();
+   }, [param]);
 
    const getParam = (target) => {
       setParam(target);

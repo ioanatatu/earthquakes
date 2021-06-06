@@ -1,35 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
+
 import ReactGlobe from 'react-globe';
 
 /**
- * Globe component creates configuration for the ReactGlobe component
+ * Globe component creates configuration for the ReactGlobe
  *
- * @param {array} data Array with earthquakes to be mapped.
+ * @param {array} data Array with earthquakes to be mapped on globe.
  */
 const Globe = ({ data }) => {
    const options = {
-      // ambientLightColor: '#a0a6e7',
-      // ambientLightColor: '#6ea6ff',
       cameraRotateSpeed: 0.5,
       focusAnimationDuration: 2000,
-      // focusEasingFunction: ['Linear', 'None'],
-      // pointLightColor: '#ede8c8',
-      // pointLightIntensity: 2.5,
-      markerTooltipRenderer: (marker) => `${marker.city} (${marker.value})`,
+      markerTooltipRenderer: (marker) =>
+         `LOCATION: ${marker.city} \n MAGNITUDE: ${marker.value}`,
       globeBackgroundTexture: '../../bcg.png',
-      // globeBackgroundTexture:
-      //    'https://raw.githubusercontent.com/chrisrzhou/react-globe/main/textures/background.png',
-      // globeCloudsTexture:
-      //    'https://raw.githubusercontent.com/chrisrzhou/react-globe/main/textures/clouds.png',
-      // globeTexture:
-      //    'https://raw.githubusercontent.com/chrisrzhou/react-globe/main/textures/globe_dark.jpg',
       ambientLightIntensity: 1.05,
-      // cameraAutoRotateSpeed: 0.1,
-      // globeCloudsOpacity: 0.1,
-      // globeGlowCoefficient: 0.1,
-      // globeGlowColor: 'white',
       globeGlowPower: 5,
       globeGlowRadiusScale: 0.2,
       pointLightPositionRadiusScales: [-1, 1.5, -2.5],
@@ -39,17 +28,9 @@ const Globe = ({ data }) => {
       <ReactGlobe
          height='84vh'
          width='84vh'
+         markers={data}
          options={options}
          globeBackgroundTexture={options.globeBackgroundTexture}
-         // globeCloudsTexture={options.globeCloudsTexture}
-         // globeTexture={options.globeTexture}
-         markers={data}
-         // onClickMarker={(marker, markerObject, event) =>
-         //    console.log(marker, markerObject, event)
-         // }
-         // onMouseOverMarker={(marker, markerObject, event) =>
-         //    console.log(marker, markerObject, event)
-         // }
       />
    );
 };

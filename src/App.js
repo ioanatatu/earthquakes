@@ -5,27 +5,43 @@ import React, { useEffect, useState } from 'react';
 import EarthquakeDataContainer from './containers/EarthquakeDataContainer/EarthquakeDataContainer';
 
 // temporary data for testing
-// import dataSet from './dataSet';
+import dataSet from './dataSet';
 
 function App() {
-   // const [reset, setReset] = useState([]);
+   const [lastHour, setLastHour] = useState([]);
    const [data, setData] = useState([]);
    const [param, setParam] = useState('all_day');
+
+   useEffect(() => {
+      //  use short polling to get real-time data from API
+      setInterval(() => {
+         (async () => {
+            fetch(
+               `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`
+            )
+               .then((res) => res.json())
+               .then((res) => setLastHour(res.features));
+         })();
+      }, 1000 * 60);
+   }, []);
 
    // useEffect(() => {
    //    const clear = setInterval(myFn, 4000);
    // }, [reset]);
 
+   // useEffect(() => {
+   //    (async () => {
+   //       //  use short polling to get real-time data from API
+   //       fetch(
+   //          `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
+   //       )
+   //          .then((res) => res.json())
+   //          .then((data) => setData(data.features));
+   //    })();
+   // }, [param]);
    useEffect(() => {
-      (async () => {
-         //  use short polling to get real-time data from API
-         fetch(
-            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
-         )
-            .then((res) => res.json())
-            .then((data) => setData(data.features));
-      })();
-   }, [param]);
+      setData(dataSet.features);
+   }, []);
 
    const getParam = (target) => {
       setParam(target);
@@ -34,6 +50,7 @@ function App() {
    return (
       <div className='App' title='app'>
          <EarthquakeDataContainer
+            lastHour={lastHour}
             data={data}
             title={{
                title: 'Earthquakes Around the Globe',

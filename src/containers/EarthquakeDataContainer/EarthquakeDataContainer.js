@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 // components
 import Globe from '../../components/Globe/Globe';
-import NewEarthquakeAlert from '../../components/Data/NewEarthquakeAlert';
+import NewEarthquakeAlert from '../../components/Data/NewEarthquakeAlert/NewEarthquakeAlert';
 import Stats from '../../components/Data/Stats';
 import Menu from '../../components/Data/Menu';
 import List from '../../components/Data/List';
@@ -26,14 +26,17 @@ import { menu } from '../../helpers/config';
 const EarthquakeDataContainer = ({
    title: { title, subtitle },
    data,
+   lastHour,
    getParam,
 }) => {
    const [maxMag, setMaxMag] = useState(null);
    const [mappedData, setMappedData] = useState([]);
+   const [location, setLocation] = useState('');
+   const [time, setTime] = useState('');
    // const [currentQuake, setCurrentQuake] = useState({});
 
+   console.log('data__', lastHour);
    useEffect(() => {
-      console.log('data__', data);
       /*
        * find earthquake with highest magnitude and
        * display its data as default
@@ -65,6 +68,13 @@ const EarthquakeDataContainer = ({
       setMappedData(mappedData);
    }, [data, setMaxMag]);
 
+   useEffect(() => {
+      if (lastHour.length) {
+         setLocation(lastHour[0].properties.place);
+         setTime(lastHour[0].properties.time);
+      }
+   }, [lastHour]);
+
    return (
       <div className={style.wrapper}>
          <div className={style.columnOne}>
@@ -73,7 +83,7 @@ const EarthquakeDataContainer = ({
             <Globe data={mappedData} />
          </div>
          <div className={style.columnTwo}>
-            <NewEarthquakeAlert />
+            <NewEarthquakeAlert location={location} time={time} />
             <Stats total={data.length} maxMag={maxMag} />
             <Menu menu={menu} handleClick={getParam} />
             <List data={mappedData} />
@@ -88,6 +98,7 @@ EarthquakeDataContainer.propTypes = {
       subtitle: PropTypes.string,
    }),
    data: PropTypes.array,
+   lastHour: PropTypes.array,
    getParam: PropTypes.func,
 };
 

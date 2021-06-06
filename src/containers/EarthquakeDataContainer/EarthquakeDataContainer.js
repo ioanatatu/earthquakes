@@ -11,10 +11,7 @@ import Menu from '../../components/Data/Menu/Menu';
 import List from '../../components/Data/List/List';
 
 // helper functions
-import {
-   findMinMaxByProperty,
-   assignColor,
-} from '../../helpers/helperFunctions';
+import { findMaxMag, assignColor } from '../../helpers/helperFunctions';
 import { menu } from '../../helpers/config';
 
 /**
@@ -34,7 +31,7 @@ const EarthquakeDataContainer = ({
    const [location, setLocation] = useState('');
    const [time, setTime] = useState('');
 
-   console.log('data__', lastHour);
+   // console.log('data__', lastHour);
    useEffect(() => {
       /*
        * find earthquake with highest magnitude and
@@ -42,10 +39,9 @@ const EarthquakeDataContainer = ({
        */
       if (data.length) {
          const earthquakeMaxMag = data.find(
-            (quake) =>
-               findMinMaxByProperty(data, 'properties.mag', 'max') === quake.id
+            (quake) => findMaxMag(data) === quake.id
          );
-         console.log(earthquakeMaxMag);
+         // console.log(earthquakeMaxMag);
          setMaxMag(earthquakeMaxMag.properties.mag);
       }
 

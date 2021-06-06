@@ -1,46 +1,27 @@
 import { magnitudeColors } from './config';
 /**
- * findMinMaxByProperty
+ * findMaxMag
  *
- * @param {array} arr Array of objects.
- * @param {string} property Property whose min or max value should be returned.
- * @param {string} m Flag to search for min or max value of property.
+ * @param {array} arr Array of earthquake objects.
  * @return {string} Id of the found word with min or max property value.
  */
-export const findMinMaxByProperty = (arr, property, m) => {
+export const findMaxMag = (arr) => {
    // handle invalid input
-   // general
-   if (!arr || !property || !m)
-      throw new Error('null, undefined or empty parameters');
    // array
-   if (!Array.isArray(arr) || !arr.length) throw new Error('invalid array');
-   // property
-   if (typeof property !== 'string' || property === '')
-      throw new Error('invalid property');
-   // flag
-   if (typeof m !== 'string' || property === '')
-      throw new Error('invalid min max flag');
+   if (!arr || !Array.isArray(arr) || !arr.length)
+      throw new Error('invalid array');
 
    // declare starting point
-   let word = { id: arr[0].id };
-   word[property] = arr[0][property];
+   let quake = { id: arr[0].id };
+   quake.mag = arr[0].properties.mag;
 
-   if (m === 'min') {
-      for (let i = 1; i < arr.length; i++) {
-         if (arr[i][property] < word[property]) {
-            word.id = arr[i].id;
-            word[property] = arr[i][property];
-         }
-      }
-   } else if (m === 'max') {
-      for (let i = 1; i < arr.length; i++) {
-         if (arr[i][property] > word[property]) {
-            word.id = arr[i].id;
-            word[property] = arr[i][property];
-         }
+   for (let i = 1; i < arr.length; i++) {
+      if (arr[i].properties.mag > quake.mag) {
+         quake.id = arr[i].id;
+         quake.mag = arr[i].properties.mag;
       }
    }
-   return word.id;
+   return quake.id;
 };
 /**
  * mapDataOnGlobeMarkers

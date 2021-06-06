@@ -13,6 +13,15 @@ function App() {
    const [param, setParam] = useState('all_day');
 
    useEffect(() => {
+      // get data firts time component mounts
+      (async () => {
+         fetch(
+            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`
+         )
+            .then((res) => res.json())
+            .then((res) => setLastHour(res.features));
+      })();
+
       //  use short polling to get real-time data from API
       setInterval(() => {
          (async () => {
@@ -31,7 +40,7 @@ function App() {
             `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
          )
             .then((res) => res.json())
-            .then((data) => setData(data.features));
+            .then((res) => setData(res.features));
       })();
    }, [param]);
 

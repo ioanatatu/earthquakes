@@ -8,7 +8,7 @@ import { magnitudeColors } from './config';
 
 const data = earthquakes.features;
 
-const { blue, green, yellowGreen, orange, red } = magnitudeColors;
+const { negative, zero, one, two, three, four, five, six } = magnitudeColors;
 
 /**
  * test findMaxMag
@@ -94,13 +94,15 @@ test('invalid input for color', () => {
 });
 
 test('correct color attribution', () => {
-   expect(assignColor(-1)).toBe(blue);
-   expect(assignColor(0)).toBe(blue);
-   expect(assignColor(1)).toBe(green);
-   expect(assignColor(1.9)).toBe(yellowGreen);
-   expect(assignColor(2)).toBe(yellowGreen);
-   expect(assignColor(2.1)).toBe(orange);
-   expect(assignColor(3)).toBe(orange);
-   expect(assignColor(3.1)).toBe(red);
-   expect(assignColor(4)).toBe(red);
+   expect(assignColor(-1)).toBe(negative);
+   expect(assignColor(0)).toBe(zero);
+   expect(assignColor(1)).toBe(one);
+   expect(assignColor(1.9)).toBe(one);
+   expect(assignColor(2)).toBe(two);
+   expect(assignColor(2.1)).toBe(two);
+   expect(assignColor(3)).toBe(three);
+   expect(assignColor(3.1)).toBe(three);
+   expect(assignColor(4)).toBe(four);
+   expect(assignColor(5)).toBe(five);
+   expect(assignColor(6)).toBe(six);
 });

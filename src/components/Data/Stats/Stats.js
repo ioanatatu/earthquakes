@@ -3,7 +3,7 @@ import style from './Stats.module.scss';
 import PropTypes from 'prop-types';
 
 /**
- * Stats component receives total and magnitude and maps it on UI
+ * Stats component receives total and magnitude and maps it on UI.
  *
  * @param {number} total Total number of earthquakes in a chosen interval.
  * @param {number} maxMag The highest magnitude in a chosen interval.

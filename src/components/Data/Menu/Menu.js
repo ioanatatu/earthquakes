@@ -18,7 +18,7 @@ const Menu = ({ menu, handleClick }) => {
                   className={style.btn}
                   key={item}
                   onClick={() => handleClick(menu[item])}>
-                  {item}
+                  last {item}
                </button>
             ))}
       </div>

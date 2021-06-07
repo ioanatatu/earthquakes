@@ -7,6 +7,16 @@ import EarthquakeDataContainer from './containers/EarthquakeDataContainer/Earthq
 // temporary data for testing
 import dataSet from './dataSet';
 
+/**
+ * App is the highest componenent in charge with making requests to the API.
+ *
+ * First useEffect() makes the first API request, once the component mounts, and
+ * it uses setInterval() for polling data every 20 seconds.
+ *
+ * Secondt useEffect() runs when params is updated and makes an API request to
+ * the resource specified by param
+ *
+ */
 function App() {
    const [lastHour, setLastHour] = useState([]);
    const [data, setData] = useState([]);
@@ -44,8 +54,8 @@ function App() {
       })();
    }, [param]);
 
-   const getParam = (target) => {
-      setParam(target);
+   const getParam = (parameter) => {
+      setParam(parameter);
    };
 
    return (

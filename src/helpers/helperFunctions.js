@@ -4,7 +4,7 @@ import { magnitudeColors } from './config';
  * findMaxMag
  *
  * @param {array} arr Array of earthquake objects.
- * @return {string} Id of the found word with min or max property value.
+ * @return {string} Id of the found earthquake maximum magnitude.
  */
 export const findMaxMag = (arr) => {
    // handle invalid input
@@ -28,8 +28,8 @@ export const findMaxMag = (arr) => {
 /**
  * mapDataOnGlobeMarkers
  *
- * @param {object} word Word data to be mapped on new data model.
- * @return {object} Word data model to be used in other components.
+ * @param {object} quake Word data to be mapped on new data model.
+ * @return {object} Earthquake data model to be used in other components.
  */
 export const mapDataOnGlobeMarkers = (quake) => {
    // cover invalid input
@@ -56,20 +56,26 @@ export const mapDataOnGlobeMarkers = (quake) => {
  * @return {string} Color depending on score.
  */
 export const assignColor = (val) => {
-   const { blue, green, yellowGreen, orange, red } = magnitudeColors;
+   const { negative, zero, one, two, three, four, five, six } = magnitudeColors;
 
    // cover invaid input
    if (isNaN(val) && !val) throw new Error('null or undefined');
    if (isNaN(val)) throw new Error('not a number');
 
    // handle valid cases
-   return val > 3
-      ? red
-      : val > 2
-      ? orange
-      : val > 1
-      ? yellowGreen
-      : val > 0
-      ? green
-      : blue;
+   return val >= 6
+      ? six
+      : val >= 5
+      ? five
+      : val >= 4
+      ? four
+      : val >= 3
+      ? three
+      : val >= 2
+      ? two
+      : val >= 1
+      ? one
+      : val >= 0
+      ? zero
+      : negative;
 };

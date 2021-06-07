@@ -1,9 +1,15 @@
+/**
+ * magnitude colors to be mapped on earthquake object
+ */
 export const magnitudeColors = {
-   green: '#1ac455',
-   red: '#ef0034',
-   yellowGreen: '#00772a',
-   orange: '#ffb600',
-   blue: '#2424ff',
+   negative: '#2424ff',
+   zero: '#4242b1',
+   one: '#1ac455',
+   two: '#00772a',
+   three: '#ffb600',
+   four: '#db7eff',
+   five: '#c533ff',
+   six: '#ef0034',
 };
 /**
  * config for data requests

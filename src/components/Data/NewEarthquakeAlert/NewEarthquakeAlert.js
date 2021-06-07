@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { GrNotification } from 'react-icons/gr';
 
 /**
- * NewEarthquakeAlert component receives the lastest eartquake
- * location and time in unix format
+ * NewEarthquakeAlert component receives the lastest eartquake location and
+ * time in unix format
  *
  * @param {string} location Location of the latest earthquake.
  * @param {number} time The time of the latest earthquake.

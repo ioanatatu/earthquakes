@@ -19,19 +19,25 @@ import {
 import { menu } from '../../helpers/config';
 
 /**
- * EarthquakeDataContainer component receives array of earthquakes and maps them
+ * EarthquakeDataContainer receives an array of earthquakes and maps them
  * on data models for other components
  *
- * @param {string} title The title given to the globe and data wrapper.
- * @param {array} data Array of earthquakes.
+ * First useEffect() maps and sorts data
+ *
+ * Second useEffect() runs when there is new incoming lastHour data and maps it
+ * on the properties for the Alert component
+ *
+ * @param {object} title Contains the title and subtitle given to the globe and
+ * data wrapper.
  * @param {array} lastHour Array of earthquakes in the last hour.
+ * @param {array} data Array of earthquakes.
  * @param {function} getParam Function that passes the info of clicked button
  * to its parent component.
  */
 const EarthquakeDataContainer = ({
    title: { title, subtitle },
-   data,
    lastHour,
+   data,
    getParam,
 }) => {
    const [maxMag, setMaxMag] = useState(null);
@@ -40,7 +46,7 @@ const EarthquakeDataContainer = ({
    const [time, setTime] = useState('');
 
    useEffect(() => {
-      // find earthquake with highest magnitude in a chosen setInterval
+      // find earthquake with highest magnitude in the chosen interval
       if (data.length) {
          const earthquakeMaxMag = data.find(
             (quake) => findMaxMag(data) === quake.id
@@ -56,7 +62,9 @@ const EarthquakeDataContainer = ({
          return quakeObj;
       });
 
+      // sort from highest to lowest based on magnitude value
       mappedData.sort((a, b) => b.value - a.value);
+
       setMappedData(mappedData);
    }, [data, setMaxMag]);
 

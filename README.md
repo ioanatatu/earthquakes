@@ -5,7 +5,7 @@ The app uses earthquake data from the USGS API and displays it on a 3D globe. It
 ## Features
 
 1. data mapping on 3D globe
-2. choose timeframe: past hour, day, week
+2. timeframe selection: last hour, day, week
 3. UI alert for latest eartquake
 4. earthquake list sorted by magnitude
 

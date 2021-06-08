@@ -29,7 +29,8 @@ function App() {
             `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`
          )
             .then((res) => res.json())
-            .then((res) => setLastHour(res.features));
+            .then((res) => setLastHour(res.features))
+            .catch((err) => console.log(err));
       })();
 
       //  use short polling to get real-time data from API
@@ -39,7 +40,8 @@ function App() {
                `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`
             )
                .then((res) => res.json())
-               .then((res) => setLastHour(res.features));
+               .then((res) => setLastHour(res.features))
+               .catch((err) => console.log(err));
          })();
       }, 1000 * 20);
    }, []);
@@ -50,7 +52,8 @@ function App() {
             `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
          )
             .then((res) => res.json())
-            .then((res) => setData(res.features));
+            .then((res) => setData(res.features))
+            .catch((err) => console.log(err));
       })();
    }, [param]);
 

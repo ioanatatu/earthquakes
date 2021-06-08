@@ -13,7 +13,7 @@ import dataSet from './dataSet';
  * First useEffect() makes the first API request, once the component mounts, and
  * it uses setInterval() for polling data every 20 seconds.
  *
- * Secondt useEffect() runs when params is updated and makes an API request to
+ * Second useEffect() runs when params is updated and makes an API request to
  * the resource specified by param
  *
  */
@@ -24,37 +24,16 @@ function App() {
 
    useEffect(() => {
       // get data firts time component mounts
-      (async () => {
-         fetch(
-            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`
-         )
-            .then((res) => res.json())
-            .then((res) => setLastHour(res.features))
-            .catch((err) => console.log(err));
-      })();
+      requestData('all_hour', setLastHour);
 
       //  use short polling to get real-time data from API
       setInterval(() => {
-         (async () => {
-            fetch(
-               `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`
-            )
-               .then((res) => res.json())
-               .then((res) => setLastHour(res.features))
-               .catch((err) => console.log(err));
-         })();
+         requestData('all_hour', setLastHour);
       }, 1000 * 20);
    }, []);
 
    useEffect(() => {
-      (async () => {
-         fetch(
-            `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
-         )
-            .then((res) => res.json())
-            .then((res) => setData(res.features))
-            .catch((err) => console.log(err));
-      })();
+      requestData(param, setData);
    }, [param]);
 
    const getParam = (parameter) => {
@@ -77,3 +56,16 @@ function App() {
 }
 
 export default App;
+
+/**
+ * helper function: make asynchronous call to the API
+ *
+ */
+async function requestData(param, setReactState) {
+   fetch(
+      `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
+   )
+      .then((res) => res.json())
+      .then((res) => setReactState(res.features))
+      .catch((err) => console.log(err));
+}

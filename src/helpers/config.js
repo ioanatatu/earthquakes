@@ -20,3 +20,7 @@ export const menu = {
    week: 'all_week',
    // month: 'all_month',
 };
+/**
+ * config for polling interval
+ */
+export const pollingInterval = 1000 * 10;

@@ -7,6 +7,9 @@ import EarthquakeDataContainer from './containers/EarthquakeDataContainer/Earthq
 // temporary data for testing
 import dataSet from './dataSet';
 
+// config files
+import { pollingInterval } from './helpers/config';
+
 /**
  * App is the highest componenent in charge with making requests to the API.
  *
@@ -29,7 +32,7 @@ function App() {
       //  use short polling to get real-time data from API
       setInterval(() => {
          requestData('all_hour', setLastHour);
-      }, 1000 * 20);
+      }, pollingInterval);
    }, []);
 
    useEffect(() => {

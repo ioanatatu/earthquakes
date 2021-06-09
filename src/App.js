@@ -23,7 +23,7 @@ function App() {
    const [param, setParam] = useState('all_day');
 
    useEffect(() => {
-      // get data firts time component mounts
+      // get data first time component mounts
       requestData('all_hour', setLastHour);
 
       //  use short polling to get real-time data from API

@@ -1,5 +1,9 @@
 import style from './Menu.module.scss';
 
+// react context
+import React, { useContext } from 'react';
+import { ParameterContext } from '../../../App';
+
 import PropTypes from 'prop-types';
 
 /**
@@ -9,7 +13,9 @@ import PropTypes from 'prop-types';
  * @param {handleClick} function Lifts the info of clicked button
  * to parrent component.
  */
-const Menu = ({ menu, handleClick }) => {
+const Menu = ({ menu }) => {
+   const getParameter = useContext(ParameterContext);
+
    return (
       <div className={style.buttons}>
          {menu &&
@@ -17,7 +23,7 @@ const Menu = ({ menu, handleClick }) => {
                <button
                   className={style.btn}
                   key={item}
-                  onClick={() => handleClick(menu[item])}>
+                  onClick={() => getParameter(menu[item])}>
                   last {item}
                </button>
             ))}

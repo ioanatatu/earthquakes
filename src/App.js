@@ -1,5 +1,5 @@
 import './App.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 
 // components
 import EarthquakeDataContainer from './containers/EarthquakeDataContainer/EarthquakeDataContainer';
@@ -9,6 +9,9 @@ import dataSet from './dataSet';
 
 // config files
 import { pollingInterval } from './helpers/config';
+
+// react context
+export const ParameterContext = createContext();
 
 /**
  * App is the highest componenent in charge with making requests to the API.
@@ -23,7 +26,7 @@ import { pollingInterval } from './helpers/config';
 function App() {
    const [lastHour, setLastHour] = useState([]);
    const [data, setData] = useState([]);
-   const [param, setParam] = useState('all_day');
+   const [parameter, setParameter] = useState('all_day');
 
    useEffect(() => {
       // get data first time component mounts
@@ -36,24 +39,25 @@ function App() {
    }, []);
 
    useEffect(() => {
-      requestData(param, setData);
-   }, [param]);
+      requestData(parameter, setData);
+   }, [parameter]);
 
-   const getParam = (parameter) => {
-      setParam(parameter);
+   const getParameter = (parameter) => {
+      setParameter(parameter);
    };
 
    return (
       <div className='App' title='app'>
-         <EarthquakeDataContainer
-            lastHour={lastHour}
-            data={data}
-            title={{
-               title: 'Earthquakes Around the Globe',
-               subtitle: 'Live from USGS',
-            }}
-            getParam={getParam}
-         />
+         <ParameterContext.Provider value={getParameter}>
+            <EarthquakeDataContainer
+               lastHour={lastHour}
+               data={data}
+               title={{
+                  title: 'Earthquakes Around the Globe',
+                  subtitle: 'Live from USGS',
+               }}
+            />
+         </ParameterContext.Provider>
       </div>
    );
 }
@@ -64,9 +68,9 @@ export default App;
  * helper function: make asynchronous call to the API
  *
  */
-async function requestData(param, setReactState) {
+async function requestData(parameter, setReactState) {
    fetch(
-      `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${param}.geojson`
+      `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${parameter}.geojson`
    )
       .then((res) => res.json())
       .then((res) => setReactState(res.features))
